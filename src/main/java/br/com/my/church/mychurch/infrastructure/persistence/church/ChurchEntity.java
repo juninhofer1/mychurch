@@ -1,11 +1,11 @@
-package br.com.my.church.mychurch.models;
+package br.com.my.church.mychurch.infrastructure.persistence.church;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "igreja")
-public class Igreja implements Serializable {
+public class ChurchEntity implements Serializable {
 
     private static final long serialVersionUID = -8406291256835657000L;
 
@@ -17,20 +17,20 @@ public class Igreja implements Serializable {
     private String fone;
     private String token;
 
-    public Igreja(Long id, String nome, String fone, String token) {
+    public ChurchEntity(Long id, String nome, String fone, String token) {
         this.id = id;
         this.nome = nome;
         this.fone = fone;
         this.token = token;
     }
 
-    public Igreja(String nome, String fone, String token) {
+    public ChurchEntity(String nome, String fone, String token) {
         this.nome = nome;
         this.fone = fone;
         this.token = token;
     }
 
-    public Igreja() {
+    public ChurchEntity() {
         super();
     }
 
