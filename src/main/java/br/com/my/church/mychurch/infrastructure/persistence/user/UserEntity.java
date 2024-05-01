@@ -1,11 +1,13 @@
 package br.com.my.church.mychurch.infrastructure.persistence.user;
 
+import br.com.my.church.mychurch.infrastructure.persistence.church.ChurchEntity;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "usuario_new")
+@Table(name = "users")
 public class UserEntity implements Serializable {
 
     /**
@@ -17,25 +19,17 @@ public class UserEntity implements Serializable {
     @Column(name = "id_usuario")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Date nascimento;
-    private String nome;
+    private Date birthday;
+    private String name;
+    private String phone;
+    private Boolean active = true;
+    private Integer profile = 0;
     private String email;
-    private String fone;
-    private Boolean ativo = true;
-    private Boolean aprovado = true;
-    private Integer perfil = 0;
-//    @ManyToOne
-//    @JoinColumn(name = "id_igreja")
-//    private ChurchEntity igreja;
-
-//	@ManyToMany (cascade = {CascadeType.ALL})
-//	@JoinTable(
-//			name="ministerio_usuario",
-//			joinColumns = @JoinColumn( name="id_usuario")
-//			,inverseJoinColumns = @JoinColumn( name="id_ministerio")
-//	)
-//	private List<Ministerio> ministerios;
-
+    private String password;
+    private Date registerDate;
+    @ManyToOne
+    @JoinColumn(name = "id_church")
+    private ChurchEntity church;
 
     public Long getId() {
         return id;
@@ -45,20 +39,44 @@ public class UserEntity implements Serializable {
         this.id = id;
     }
 
-    public Date getNascimento() {
-        return nascimento;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setNascimento(Date nascimento) {
-        this.nascimento = nascimento;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Integer getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Integer profile) {
+        this.profile = profile;
     }
 
     public String getEmail() {
@@ -69,43 +87,27 @@ public class UserEntity implements Serializable {
         this.email = email;
     }
 
-    public String getFone() {
-        return fone;
+    public String getPassword() {
+        return password;
     }
 
-    public void setFone(String fone) {
-        this.fone = fone;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Boolean getAtivo() {
-        return ativo;
+    public Date getRegisterDate() {
+        return registerDate;
     }
 
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
     }
 
-    public Boolean getAprovado() {
-        return aprovado;
+    public ChurchEntity getChurch() {
+        return church;
     }
 
-    public void setAprovado(Boolean aprovado) {
-        this.aprovado = aprovado;
+    public void setChurch(ChurchEntity church) {
+        this.church = church;
     }
-
-    public Integer getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(Integer perfil) {
-        this.perfil = perfil;
-    }
-
-//    public ChurchEntity getIgreja() {
-//        return igreja;
-//    }
-//
-//    public void setIgreja(ChurchEntity igreja) {
-//        this.igreja = igreja;
-//    }
 }

@@ -14,4 +14,8 @@ public class CreateUserInteractor {
     public User createUser(User usuario) {
         return userGatway.createUser(usuario);
     }
+
+    public User loadByEmail(String email) {
+        return userGatway.loadByEmail(email);
+    }
 }

@@ -3,8 +3,9 @@ package br.com.my.church.mychurch.domain.entity;
 public class Church {
 
     private Long id;
-    private Long idUsuario;
-    private String perfil;
+    private String name;
+    private String phone;
+    private String token;
 
     public Long getId() {
         return id;
@@ -14,19 +15,27 @@ public class Church {
         this.id = id;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public String getName() {
+        return name;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPerfil() {
-        return perfil;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

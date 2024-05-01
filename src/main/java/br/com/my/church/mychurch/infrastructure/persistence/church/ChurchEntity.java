@@ -4,34 +4,32 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "igreja")
+@Table(name = "churches")
 public class ChurchEntity implements Serializable {
 
-    private static final long serialVersionUID = -8406291256835657000L;
-
     @Id
-    @Column(name = "id_igreja")
+    @Column(name = "id_church")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nome;
-    private String fone;
+    private String name;
+    private String phone;
     private String token;
-
-    public ChurchEntity(Long id, String nome, String fone, String token) {
-        this.id = id;
-        this.nome = nome;
-        this.fone = fone;
-        this.token = token;
-    }
-
-    public ChurchEntity(String nome, String fone, String token) {
-        this.nome = nome;
-        this.fone = fone;
-        this.token = token;
-    }
 
     public ChurchEntity() {
         super();
+    }
+
+    public ChurchEntity(String name, String phone, String token) {
+        this.name = name;
+        this.phone = phone;
+        this.token = token;
+    }
+
+    public ChurchEntity(Long id, String name, String phone, String token) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.token = token;
     }
 
     public Long getId() {
@@ -42,20 +40,20 @@ public class ChurchEntity implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getFone() {
-        return fone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setFone(String fone) {
-        this.fone = fone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getToken() {

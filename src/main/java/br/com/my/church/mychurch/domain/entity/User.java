@@ -1,20 +1,23 @@
 package br.com.my.church.mychurch.domain.entity;
 
 import br.com.my.church.mychurch.infrastructure.persistence.church.ChurchEntity;
+import br.com.my.church.mychurch.util.ValidateUtil;
 
 import java.util.Date;
 
 public class User {
 
     private Long id;
-    private Date nascimento;
-    private String nome;
+    private Date birthday;
+    private String name;
+    private String phone;
+    private Boolean active = true;
+    private Integer profile = 0;
     private String email;
-    private String fone;
-    private Boolean ativo = true;
-    private Boolean aprovado = true;
-    private Integer perfil = 0;
-    private Church igreja;
+    private String password;
+    private String church;
+
+    private Date registerDate;
 
     public Long getId() {
         return id;
@@ -24,20 +27,44 @@ public class User {
         this.id = id;
     }
 
-    public Date getNascimento() {
-        return nascimento;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setNascimento(Date nascimento) {
-        this.nascimento = nascimento;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Integer getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Integer profile) {
+        this.profile = profile;
     }
 
     public String getEmail() {
@@ -48,43 +75,82 @@ public class User {
         this.email = email;
     }
 
-    public String getFone() {
-        return fone;
+    public String getPassword() {
+        return password;
     }
 
-    public void setFone(String fone) {
-        this.fone = fone;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Boolean getAtivo() {
-        return ativo;
+    public String getChurch() {
+        return church;
     }
 
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
+    public void setChurch(String church) {
+        this.church = church;
     }
 
-    public Boolean getAprovado() {
-        return aprovado;
+    public Date getRegisterDate() {
+        return registerDate;
     }
 
-    public void setAprovado(Boolean aprovado) {
-        this.aprovado = aprovado;
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
     }
 
-    public Integer getPerfil() {
-        return perfil;
+    public int nomeValido() {
+        return ValidateUtil.validateString(name, 200);
     }
 
-    public void setPerfil(Integer perfil) {
-        this.perfil = perfil;
+    public int emailValido() {
+        return ValidateUtil.validateStringWithRegex(email, 200, ValidateUtil.REGEX_EMAIL);
     }
 
-    public Church getIgreja() {
-        return igreja;
+    public int foneValido() {
+        return ValidateUtil.validateCelular(phone);
     }
 
-    public void setIgreja(Church igreja) {
-        this.igreja = igreja;
+    public ValidatedField validarCampos() {
+        ValidatedField validatedField;
+
+        if (email != null) {
+            switch (emailValido()) {
+                case ValidateUtil.STRING_LONGA:
+                    return new ValidatedField("Email deve conter no máximo 200 caracteres", false);
+                case ValidateUtil.STRING_VAZIA:
+                    return new ValidatedField("Informe um email válido", false);
+                case ValidateUtil.STRING_INVALIDA:
+                    return new ValidatedField("Email inválido, informe um email válido para continuar", false);
+            }
+        }
+
+        switch (nomeValido()) {
+            case ValidateUtil.STRING_LONGA:
+                return new ValidatedField("Nome deve conter no máximo 200 caracteres", false);
+            case ValidateUtil.STRING_VAZIA:
+                return new ValidatedField("Informe um nome válido", false);
+        }
+
+        switch (foneValido()) {
+            case ValidateUtil.STRING_LONGA:
+                return new ValidatedField("O telefone deve conter no máximo 14 caracteres", false);
+            case ValidateUtil.STRING_INVALIDA:
+                return new ValidatedField("Número de celular inválido", false);
+        }
+
+        if (password == null) {
+            return new ValidatedField("Informe uma senha", false);
+        }
+
+        if (password.isEmpty()) {
+            return new ValidatedField("Informe uma senha válida", false);
+        }
+
+        if (password.length() < 6) {
+            return new ValidatedField("A senha deve conter no mínimo 6 caracteres", false);
+        }
+
+        return new ValidatedField("Campos informados com sucesso", true);
     }
 }
